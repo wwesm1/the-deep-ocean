@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Deep Ocean — A Descent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ==========================================================================
+     LOADER
+     ========================================================================== -->
+    <div id="loader" aria-hidden="true">
+        <div class="loader-drop"></div>
+        <div class="loader-text">Descending</div>
+    </div>
+
+    <!-- custom cursor -->
+    <div id="cursor" aria-hidden="true"></div>
+
+    <!-- shared particle field -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- ==========================================================================
+     NAV
+     ========================================================================== -->
+    <nav id="site-nav">
+        <div class="nav-mark"><span class="dot"></span>THE DEEP OCEAN</div>
+        <div class="nav-right">
+            <div class="depth-readout"><span id="depth-value">0 m</span><small>Current Depth</small></div>
+            <div class="compass" title="Descending"></div>
+            <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient sound">🔈</button>
+        </div>
+    </nav>
+
+    <div id="progress-rail" aria-hidden="true">
+        <div id="progress-fill"></div>
+    </div>
+
+    <main id="scroll-container">
+
+        <!-- ======================================================================
+       SCENE 1 — THE SHORE
+       ====================================================================== -->
+        <section class="scene" id="scene-shore">
+            <div class="scene-bg" aria-hidden="true">
+                <div class="sun"></div>
+                <!-- clouds -->
+                <div class="cloud"
+                    style="width:140px;height:36px;top:10%;left:8%;animation:drift 14s ease-in-out infinite;"></div>
+                <div class="cloud"
+                    style="width:90px;height:26px;top:18%;left:70%;animation:drift 18s ease-in-out infinite 2s;"></div>
+                <div class="cloud"
+                    style="width:60px;height:20px;top:8%;left:45%;animation:drift 11s ease-in-out infinite 1s;"></div>
+                <!-- birds -->
+                <div class="bird" style="top:22%;left:20%;animation:swimAcross 26s linear infinite;"><svg
+                        viewBox="0 0 24 12">
+                        <path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="currentColor" stroke-width="1.6" fill="none" />
+                    </svg></div>
+                <div class="bird" style="top:28%;left:60%;animation:swimAcross 32s linear infinite 4s;"><svg
+                        viewBox="0 0 24 12">
+                        <path d="M0 8 Q6 0 12 8 Q18 0 24 8" stroke="currentColor" stroke-width="1.6" fill="none" />
+                    </svg></div>
+                <div class="sand"></div>
+                <div class="horizon-water">
+                    <svg class="wave-line" id="wave-svg" viewBox="0 0 1600 60" preserveAspectRatio="none"
+                        style="top:-6px;height:60px;">
+                        <path
+                            d="M0 30 Q 100 0 200 30 T 400 30 T 600 30 T 800 30 T 1000 30 T 1200 30 T 1400 30 T 1600 30 V60 H0 Z"
+                            fill="rgba(255,255,255,.4)" />
+                    </svg>
+                </div>
+            </div>
+            <div class="scene-content">
+                <p class="eyebrow reveal">Surface · 0 m</p>
+                <h1 class="hero-title reveal reveal-delay-1">THE DEEP OCEAN</h1>
+                <p class="hero-sub reveal reveal-delay-2">Scroll to discover what lies beneath.</p>
+            </div>
+            <div class="scroll-cue reveal reveal-delay-3"><span>Scroll</span><span class="line"></span></div>
+        </section>
+
+        <!-- ======================================================================
+       SCENE 2 — SUNLIGHT ZONE
+       ====================================================================== -->
+        <section class="scene" id="scene-sunlight">
+            <span class="scene-tag">02 — Sunlight Zone</span>
+            <div class="scene-bg" aria-hidden="true" id="sunlight-bg">
+                <!-- light rays, fish, jellies, seagrass injected by JS for variety -->
+            </div>
+            <div class="scene-content">
+                <p class="eyebrow reveal">200 m and shrinking</p>
+                <h2 class="reveal reveal-delay-1" style="font-size:clamp(2rem,5vw,3.4rem);">The Sunlight Zone</h2>
+                <p class="reveal reveal-delay-2"
+                    style="max-width:46ch;margin:18px auto 0;color:var(--ink-1);font-size:1rem;">Coral gardens ripple
+                    under shifting beams of light, alive with colour and motion.</p>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+       SCENE 3 — CORAL KINGDOM
+       ====================================================================== -->
+        <section class="scene" id="scene-coral">
+            <span class="scene-tag">03 — Coral Kingdom</span>
+            <div class="scene-bg" aria-hidden="true" id="coral-bg"></div>
+            <div class="scene-content">
+                <p class="eyebrow reveal">A living metropolis</p>
+                <h2 class="reveal reveal-delay-1" style="font-size:clamp(2rem,5vw,3.4rem);">Coral Kingdom</h2>
+                <p class="reveal reveal-delay-2"
+                    style="max-width:46ch;margin:18px auto 0;color:var(--ink-1);font-size:1rem;">Hover the glowing nodes
+                    to learn what makes this reef a city of a million residents.</p>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+       SCENE 4 — PREDATOR ZONE
+       ====================================================================== -->
+        <section class="scene" id="scene-predator">
+            <span class="scene-tag">04 — Predator Zone</span>
+            <div class="scene-bg" aria-hidden="true" id="predator-bg"></div>
+            <div class="scene-content">
+                <p class="eyebrow reveal">The light thins</p>
+                <h2 class="reveal reveal-delay-1" style="font-size:clamp(2rem,5vw,3.4rem);">Predator Zone</h2>
+                <p class="reveal reveal-delay-2"
+                    style="max-width:46ch;margin:18px auto 0;color:var(--ink-1);font-size:1rem;">Shapes circle at the
+                    edge of sight. Something large is always watching.</p>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+       SCENE 5 — SUNKEN SHIP
+       ====================================================================== -->
+        <section class="scene" id="scene-ship">
+            <span class="scene-tag">05 — The Wreck</span>
+            <div class="scene-bg" aria-hidden="true" id="ship-bg">
+                <svg class="ship-hull" id="ship-svg" width="560" height="280" viewBox="0 0 560 280">
+                    <defs>
+                        <linearGradient id="hullGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#1c2e44" />
+                            <stop offset="1" stop-color="#0a1120" />
+                        </linearGradient>
+                    </defs>
+                    <!-- hull -->
+                    <path d="M40 90 L520 90 L470 220 L90 220 Z" fill="url(#hullGrad)" stroke="#0e6b5f"
+                        stroke-width="2" />
+                    <!-- deck detail -->
+                    <rect x="90" y="60" width="380" height="34" fill="#16233a" stroke="#0e6b5f" stroke-width="1.5" />
+                    <!-- mast -->
+                    <line x1="280" y1="10" x2="280" y2="70" stroke="#16233a" stroke-width="6" />
+                    <line x1="200" y1="34" x2="360" y2="34" stroke="#16233a" stroke-width="5" />
+                    <!-- portholes -->
+                    <circle cx="150" cy="150" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
+                    <circle cx="220" cy="155" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
+                    <circle cx="340" cy="155" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
+                    <circle cx="410" cy="150" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
+                    <!-- algae streaks -->
+                    <path d="M100 92 Q90 140 110 220" stroke="#1fae86" stroke-width="10" fill="none" opacity=".5" />
+                    <path d="M460 92 Q472 150 448 220" stroke="#1fae86" stroke-width="12" fill="none" opacity=".45" />
+                </svg>
+            </div>
+            <div class="scene-content">
+                <p class="eyebrow reveal">Resting since 1843</p>
+                <h2 class="reveal reveal-delay-1" style="font-size:clamp(2rem,5vw,3.4rem);">The Sunken Ship</h2>
+                <p class="reveal reveal-delay-2"
+                    style="max-width:46ch;margin:18px auto 0;color:var(--ink-1);font-size:1rem;">Rust, chains and coral
+                    have made a new home of what the sea once claimed.</p>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+       SCENE 6 — ABYSS
+       ====================================================================== -->
+        <section class="scene" id="scene-abyss">
+            <span class="scene-tag">06 — The Abyss</span>
+            <div class="scene-bg" aria-hidden="true" id="abyss-bg">
+                <div class="spotlight" id="spotlight"></div>
+            </div>
+            <div class="scene-content">
+                <p class="eyebrow reveal">1,000 m · sunlight ends here</p>
+                <h2 class="reveal reveal-delay-1" style="font-size:clamp(2rem,5vw,3.4rem);">The Abyss</h2>
+                <p class="reveal reveal-delay-2"
+                    style="max-width:46ch;margin:18px auto 0;color:var(--ink-1);font-size:1rem;">No light survives this
+                    deep. Only what glows chooses to be seen.</p>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+       SCENE 7 — MARIANA TRENCH
+       ====================================================================== -->
+        <section class="scene" id="scene-trench">
+            <span class="scene-tag">07 — Mariana Trench</span>
+            <div class="scene-bg" aria-hidden="true" id="trench-bg"></div>
+            <div class="scene-content">
+                <p class="eyebrow reveal">10,935 m · the deepest point on Earth</p>
+                <h2 class="reveal reveal-delay-1" style="font-size:clamp(2rem,5vw,3.4rem);">Mariana Trench</h2>
+                <p class="reveal reveal-delay-2"
+                    style="max-width:46ch;margin:18px auto 0;color:var(--ink-1);font-size:1rem;">The pressure here could
+                    crush a car. Life persists anyway, glowing quietly in the cold.</p>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+       SCENE 8 — UNKNOWN CREATURES
+       ====================================================================== -->
+        <section class="scene" id="scene-unknown">
+            <span class="scene-tag">08 — The Unknown</span>
+            <div class="scene-bg" aria-hidden="true" id="unknown-bg"></div>
+            <div class="scene-content reveal">
+                <div class="great-eye"></div>
+                <p class="eyebrow">Beyond what we've mapped</p>
+                <h2 style="font-size:clamp(2rem,5vw,3.4rem);">Something Watches Back</h2>
+                <p style="max-width:46ch;margin:18px auto 0;color:var(--ink-1);font-size:1rem;">Most of this world has
+                    never seen a light that wasn't its own.</p>
+            </div>
+        </section>
+
+        <!-- ======================================================================
+       FINAL SCENE
+       ====================================================================== -->
+        <section class="scene" id="scene-final">
+            <div class="scene-bg" aria-hidden="true" id="final-bg"></div>
+            <div class="scene-content">
+                <p class="final-line reveal">Only 5% of our oceans have been explored.</p>
+                <button class="glass-btn reveal reveal-delay-1" id="explore-again">↑ Explore Again</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>The Deep Ocean — a scrollytelling study · built with HTML, CSS &amp; vanilla JS</footer>
+</body>
+
+</html>
