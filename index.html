@@ -13,24 +13,15 @@
 </head>
 
 <body>
-
-    <!-- ==========================================================================
-     LOADER
-     ========================================================================== -->
     <div id="loader" aria-hidden="true">
         <div class="loader-drop"></div>
         <div class="loader-text">Descending</div>
     </div>
 
-    <!-- custom cursor -->
     <div id="cursor" aria-hidden="true"></div>
 
-    <!-- shared particle field -->
     <canvas id="particle-canvas"></canvas>
 
-    <!-- ==========================================================================
-     NAV
-     ========================================================================== -->
     <nav id="site-nav">
         <div class="nav-mark"><span class="dot"></span>THE DEEP OCEAN</div>
         <div class="nav-right">
@@ -46,9 +37,6 @@
 
     <main id="scroll-container">
 
-        <!-- ======================================================================
-       SCENE 1 — THE SHORE
-       ====================================================================== -->
         <section class="scene" id="scene-shore">
             <div class="scene-bg" aria-hidden="true">
                 <div class="sun"></div>
@@ -86,13 +74,9 @@
             <div class="scroll-cue reveal reveal-delay-3"><span>Scroll</span><span class="line"></span></div>
         </section>
 
-        <!-- ======================================================================
-       SCENE 2 — SUNLIGHT ZONE
-       ====================================================================== -->
         <section class="scene" id="scene-sunlight">
             <span class="scene-tag">02 — Sunlight Zone</span>
             <div class="scene-bg" aria-hidden="true" id="sunlight-bg">
-                <!-- light rays, fish, jellies, seagrass injected by JS for variety -->
             </div>
             <div class="scene-content">
                 <p class="eyebrow reveal">200 m and shrinking</p>
@@ -103,9 +87,6 @@
             </div>
         </section>
 
-        <!-- ======================================================================
-       SCENE 3 — CORAL KINGDOM
-       ====================================================================== -->
         <section class="scene" id="scene-coral">
             <span class="scene-tag">03 — Coral Kingdom</span>
             <div class="scene-bg" aria-hidden="true" id="coral-bg"></div>
@@ -118,9 +99,6 @@
             </div>
         </section>
 
-        <!-- ======================================================================
-       SCENE 4 — PREDATOR ZONE
-       ====================================================================== -->
         <section class="scene" id="scene-predator">
             <span class="scene-tag">04 — Predator Zone</span>
             <div class="scene-bg" aria-hidden="true" id="predator-bg"></div>
@@ -133,9 +111,6 @@
             </div>
         </section>
 
-        <!-- ======================================================================
-       SCENE 5 — SUNKEN SHIP
-       ====================================================================== -->
         <section class="scene" id="scene-ship">
             <span class="scene-tag">05 — The Wreck</span>
             <div class="scene-bg" aria-hidden="true" id="ship-bg">
@@ -146,20 +121,18 @@
                             <stop offset="1" stop-color="#0a1120" />
                         </linearGradient>
                     </defs>
-                    <!-- hull -->
                     <path d="M40 90 L520 90 L470 220 L90 220 Z" fill="url(#hullGrad)" stroke="#0e6b5f"
                         stroke-width="2" />
-                    <!-- deck detail -->
                     <rect x="90" y="60" width="380" height="34" fill="#16233a" stroke="#0e6b5f" stroke-width="1.5" />
-                    <!-- mast -->
+         
                     <line x1="280" y1="10" x2="280" y2="70" stroke="#16233a" stroke-width="6" />
                     <line x1="200" y1="34" x2="360" y2="34" stroke="#16233a" stroke-width="5" />
-                    <!-- portholes -->
+             
                     <circle cx="150" cy="150" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
                     <circle cx="220" cy="155" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
                     <circle cx="340" cy="155" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
                     <circle cx="410" cy="150" r="16" fill="#03060c" stroke="#2ee6a8" stroke-width="2" />
-                    <!-- algae streaks -->
+            
                     <path d="M100 92 Q90 140 110 220" stroke="#1fae86" stroke-width="10" fill="none" opacity=".5" />
                     <path d="M460 92 Q472 150 448 220" stroke="#1fae86" stroke-width="12" fill="none" opacity=".45" />
                 </svg>
@@ -173,9 +146,6 @@
             </div>
         </section>
 
-        <!-- ======================================================================
-       SCENE 6 — ABYSS
-       ====================================================================== -->
         <section class="scene" id="scene-abyss">
             <span class="scene-tag">06 — The Abyss</span>
             <div class="scene-bg" aria-hidden="true" id="abyss-bg">
@@ -190,9 +160,6 @@
             </div>
         </section>
 
-        <!-- ======================================================================
-       SCENE 7 — MARIANA TRENCH
-       ====================================================================== -->
         <section class="scene" id="scene-trench">
             <span class="scene-tag">07 — Mariana Trench</span>
             <div class="scene-bg" aria-hidden="true" id="trench-bg"></div>
@@ -205,9 +172,6 @@
             </div>
         </section>
 
-        <!-- ======================================================================
-       SCENE 8 — UNKNOWN CREATURES
-       ====================================================================== -->
         <section class="scene" id="scene-unknown">
             <span class="scene-tag">08 — The Unknown</span>
             <div class="scene-bg" aria-hidden="true" id="unknown-bg"></div>
@@ -220,9 +184,6 @@
             </div>
         </section>
 
-        <!-- ======================================================================
-       FINAL SCENE
-       ====================================================================== -->
         <section class="scene" id="scene-final">
             <div class="scene-bg" aria-hidden="true" id="final-bg"></div>
             <div class="scene-content">
