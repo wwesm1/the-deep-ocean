@@ -1,6 +1,3 @@
-/* ==========================================================================
-   MODULE: utils
-   ========================================================================== */
 const Utils = (() => {
   const lerp = (a,b,t) => a + (b-a)*t;
   const clamp = (v,min,max) => Math.max(min, Math.min(max, v));
@@ -8,17 +5,11 @@ const Utils = (() => {
   return { lerp, clamp, rand };
 })();
 
-/* ==========================================================================
-   MODULE: loader
-   ========================================================================== */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
   setTimeout(() => loader.classList.add('hidden'), 700);
 });
 
-/* ==========================================================================
-   MODULE: custom cursor
-   ========================================================================== */
 const CursorFX = (() => {
   const el = document.getElementById('cursor');
   if(window.matchMedia('(hover:none)').matches) return;
@@ -37,9 +28,6 @@ const CursorFX = (() => {
   return { get x(){return mx}, get y(){return my} };
 })();
 
-/* ==========================================================================
-   MODULE: audio toggle (UI stub — no external audio asset wired in)
-   ========================================================================== */
 (() => {
   const btn = document.getElementById('audio-toggle');
   let on = false;
@@ -51,9 +39,6 @@ const CursorFX = (() => {
   });
 })();
 
-/* ==========================================================================
-   MODULE: reveal-on-scroll (IntersectionObserver)
-   ========================================================================== */
 (() => {
   const targets = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
@@ -64,10 +49,6 @@ const CursorFX = (() => {
   targets.forEach(t => io.observe(t));
 })();
 
-/* ==========================================================================
-   MODULE: scroll depth — drives progress bar, readout, --depth var,
-   mist/wave transform, and the great-eye reveal timing
-   ========================================================================== */
 const ScrollDepth = (() => {
   const fill = document.getElementById('progress-fill');
   const readout = document.getElementById('depth-value');
@@ -92,9 +73,6 @@ const ScrollDepth = (() => {
   return { update };
 })();
 
-/* ==========================================================================
-   MODULE: parallax — mouse + scroll based transforms on scene backgrounds
-   ========================================================================== */
 (() => {
   const scenes = document.querySelectorAll('.scene-bg');
   let mx = 0, my = 0;
@@ -112,9 +90,6 @@ const ScrollDepth = (() => {
   tick();
 })();
 
-/* ==========================================================================
-   MODULE: shore waves — subtle path morph
-   ========================================================================== */
 (() => {
   const path = document.querySelector('#wave-svg path');
   if(!path) return;
@@ -129,11 +104,6 @@ const ScrollDepth = (() => {
   animateWave();
 })();
 
-/* ==========================================================================
-   MODULE: scene population — builds sunlight fish/jellies/rays,
-   coral nodes, predator sharks, abyss tentacles, trench bio-dots,
-   unknown ghosts, final plankton
-   ========================================================================== */
 (() => {
 
   function el(tag, cls, styleObj){
@@ -147,7 +117,6 @@ const ScrollDepth = (() => {
       <path d="M0 9 Q10 0 26 5 L34 2 L28 9 L34 16 L26 13 Q10 18 0 9 Z" fill="${color}"/>
     </svg>`;
 
-  /* ---------- Sunlight Zone ---------- */
   const sunlightBg = document.getElementById('sunlight-bg');
   for(let i=0;i<6;i++){
     const ray = el('div','light-ray',{
@@ -189,7 +158,6 @@ const ScrollDepth = (() => {
     sunlightBg.appendChild(jelly);
   }
 
-  /* ---------- Coral Kingdom ---------- */
   const coralBg = document.getElementById('coral-bg');
   const coralFacts = [
     'Coral reefs cover less than 1% of the ocean floor but support 25% of marine species.',
@@ -226,7 +194,6 @@ const ScrollDepth = (() => {
     coralBg.appendChild(f);
   }
 
-  /* ---------- Predator Zone ---------- */
   const predatorBg = document.getElementById('predator-bg');
   predatorBg.appendChild(el('div','whale-shadow',{
     width:'340px', height:'110px', borderRadius:'50%', background:'#000',
@@ -251,7 +218,6 @@ const ScrollDepth = (() => {
     }));
   }
 
-  /* ---------- Sunken Ship ---------- */
   const shipBg = document.getElementById('ship-bg');
   shipBg.appendChild(el('div','lantern-glow',{ width:'26px', height:'26px', left:'34%', top:'46%' }));
   shipBg.appendChild(el('div','chain',{
@@ -270,7 +236,6 @@ const ScrollDepth = (() => {
     shipBg.appendChild(f);
   }
 
-  /* ---------- Abyss ---------- */
   const abyssBg = document.getElementById('abyss-bg');
   const svgNS = 'http://www.w3.org/2000/svg';
   const tsvg = document.createElementNS(svgNS,'svg');
@@ -296,7 +261,6 @@ const ScrollDepth = (() => {
   }
   abyssBg.appendChild(el('div','deep-shadow',{ width:'280px', height:'160px', top:'30%', left:'60%' }));
 
-  /* spotlight follows scroll-based subtle drift */
   const spotlight = document.getElementById('spotlight');
   function driftSpot(){
     const t = Date.now()/4000;
@@ -308,7 +272,6 @@ const ScrollDepth = (() => {
   }
   driftSpot();
 
-  /* ---------- Mariana Trench ---------- */
   const trenchBg = document.getElementById('trench-bg');
   trenchBg.appendChild(el('div','vent',{ width:'40px', height:'50%', left:'30%' }));
   trenchBg.appendChild(el('div','vent',{ width:'26px', height:'35%', left:'68%' }));
@@ -323,7 +286,6 @@ const ScrollDepth = (() => {
     }));
   }
 
-  /* ---------- Unknown Creatures ---------- */
   const unknownBg = document.getElementById('unknown-bg');
   for(let i=0;i<3;i++){
     unknownBg.appendChild(el('div','ghost-form',{
@@ -334,7 +296,6 @@ const ScrollDepth = (() => {
     }));
   }
 
-  /* ---------- Final scene plankton ---------- */
   const finalBg = document.getElementById('final-bg');
   for(let i=0;i<24;i++){
     const size = Utils.rand(1,3);
@@ -349,10 +310,6 @@ const ScrollDepth = (() => {
 
 })();
 
-/* ==========================================================================
-   MODULE: particle system — ambient bubbles / dust on shared canvas,
-   colour interpolates with --depth for a continuous descent feel
-   ========================================================================== */
 const ParticleField = (() => {
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
@@ -378,15 +335,14 @@ const ParticleField = (() => {
   }
   for(let i=0;i<COUNT;i++) particles.push(makeParticle());
 
-  // colour stops matching the palette, shore -> trench
   const stops = [
-    [95,232,255],   // cyan (shore/sunlight)
+    [95,232,255],   
     [70,190,220],
     [80,140,230],
     [110,100,220],
     [140,90,220],
     [90,60,160],
-    [40,30,70]       // near black (trench)
+    [40,30,70]      
   ];
   function colorAtDepth(depth){
     const seg = depth * (stops.length-1);
@@ -420,9 +376,6 @@ const ParticleField = (() => {
   tick();
 })();
 
-/* ==========================================================================
-   MODULE: explore-again — smooth return to top
-   ========================================================================== */
 document.getElementById('explore-again').addEventListener('click', () => {
   window.scrollTo({ top:0, behavior:'smooth' });
 });
